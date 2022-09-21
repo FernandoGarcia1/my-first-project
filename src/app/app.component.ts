@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CharacterHp } from './models/character-hp.model';
 import { Character } from './models/character.model'
+import { Player } from './models/player-detail.model';
+import { Product } from './models/product.model';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,10 @@ export class AppComponent {
     //this.forStatement();
     //this.tryCatchStatement();
     //this.basicFunctions();
-    this.otherFunction()
+    //this.otherFunction()
+    //this.basicDestructuring()
+    //this.arrayDestructuring()
+    this.argumentsDestructuring()
     
   }
 
@@ -174,6 +179,65 @@ otherFunction(){
   this.healCharacter(character);
   character.showHP();
 }
+
+basicDestructuring() {
+  const CURRENT_SONG: Player = {
+    volume : 91,
+    second : 23,
+    nameSong : "Good feeling",
+    detail : {
+      author : 'Fernando Caballero',
+      year : 2011
+    }
+  }
+  const AUTHOR = 'Manuel Negrete'
+  const {volume, second, nameSong, detail} = CURRENT_SONG
+  const {author: detailAuthor,year} = detail
+
+  console.log('El volumen es de : ', volume)
+  console.log('El segundo actual es ', second)
+  console.log('ElLa cancion actual es ', nameSong)
+  console.log('El author es ', detailAuthor)
+
 }
 
+arrayDestructuring(){
+  const AVENGERS : string [] = ['THOR', 'Hulk', 'Iron-Man', 'Cap-America']
+  const [, , , p4] = AVENGERS
+  const [c1,c2,c3] = AVENGERS
+  console.log('El avenger p3 es ', p4)
+  console.log('El avenger c1 es ', c1)
+  console.log('El avenger c2 es ', c2)
+  console.log('El avenger c3 es ', c3)
 
+}
+
+  argumentsDestructuring(){
+    const phone: Product = {
+      description: 'Iphone 14 pro Max',
+      price: 56000
+    }
+
+    const laptop: Product = {
+      description : 'Thinkpad t460s',
+      price: 20000
+    }
+
+    function calcTaxes (products: Product[]) : [number,number]{
+      let total = 0;
+
+      products.forEach(product => {
+        total += product.price
+      })
+
+      return [total, total*1.16]
+    }
+
+    const CAR_ITEMS : Product[] = [phone, laptop]
+    console.table(CAR_ITEMS)
+    const [cartPrice, cartTaxes] = calcTaxes(CAR_ITEMS)
+
+    console.log(cartPrice)
+    console.log(cartTaxes)
+  }
+}
